@@ -26,14 +26,23 @@ public class TestDictationRecognizer : MonoBehaviour
     /// </summary>
     public GameObject infoMenu;
     /// <summary>
+    /// Attach to Save list info menu
+    /// </summary>
+    public GameObject saveListMenu;
+    /// <summary>
     /// flag of menu status
     /// </summary>
-    public bool isMenuShown = false;
-    public bool isInfoShown = false;
+    private bool isMenuShown = false;
+    private bool isInfoShown = false;
+    private bool isSaveShown = false;
 
     // Use this for initialization
     void Start()
     {
+        if(menuObject.activeSelf)
+        {
+            isMenuShown = true;
+        }
         enableDictation();
     }
 
@@ -82,6 +91,9 @@ public class TestDictationRecognizer : MonoBehaviour
         {
             // disable other shown info menus
             if (isInfoShown) infoMenu.SetActive(false);
+            isInfoShown = false;
+            if (isSaveShown) saveListMenu.SetActive(false);
+            isSaveShown = false;
 
             // enable/disable menu
             if (menuObject.activeSelf)
@@ -94,10 +106,13 @@ public class TestDictationRecognizer : MonoBehaviour
                 isMenuShown = true;
             }
         }
-        else if (string.Equals(text, "Information"))
+        else if (string.Equals(text, "information"))
         {
             // disable other shown info menus
             if (isMenuShown) menuObject.SetActive(false);
+            isMenuShown = false;
+            if (isSaveShown) saveListMenu.SetActive(false);
+            isSaveShown = false;
 
             // enable/disable menu
             if (infoMenu.activeSelf)
@@ -111,39 +126,59 @@ public class TestDictationRecognizer : MonoBehaviour
                 isInfoShown = true;
             }
         }
-        else if (string.Equals(text, "save color red"))
+        else if (string.Equals(text, "save colour red"))
         {
             SaveManager.Instance.Save("saveA");
         }
-        else if (string.Equals(text, "save color blue"))
+        else if (string.Equals(text, "save colour blue"))
         {
             SaveManager.Instance.Save("saveB");
         }
-        else if (string.Equals(text, "save color green"))
+        else if (string.Equals(text, "save colour green"))
         {
             SaveManager.Instance.Save("saveC");
         }
-        else if (string.Equals(text, "load color red"))
+        else if (string.Equals(text, "load colour red"))
         {
             SaveManager.Instance.Load("saveA");
         }
-        else if (string.Equals(text, "load color blue"))
+        else if (string.Equals(text, "load colour blue"))
         {
             SaveManager.Instance.Load("saveB");
         }
-        else if (string.Equals(text, "load color green"))
+        else if (string.Equals(text, "load colour green"))
         {
             SaveManager.Instance.Load("saveC");
         }
-        else if (string.Equals(text, "show list"))
-        {   
+        else if (string.Equals(text, "show archive"))
+        {
             // ONLY USE FOR TESTING SAVE LIST
+            TextMesh currentText = saveListMenu.GetComponent<TextMesh>();
+            currentText.text = "Saves\n";
+            currentText.text += "save A"+"\n";
             print("Saved List size: " + SaveManager.Instance.saveList.Count);
             for (int index = 0; index < SaveManager.Instance.saveList.Count; index++)
             {
                 print(index + " : " + SaveManager.Instance.saveList[index]);
             }
 
+            // disable other shown info menus
+            if (isMenuShown) menuObject.SetActive(false);
+            isMenuShown = false;
+            if (isInfoShown) infoMenu.SetActive(false);
+            isInfoShown = false;
+
+            // enable/disable save menu
+            if (saveListMenu.activeSelf)
+            {
+                saveListMenu.SetActive(false);
+                isSaveShown = false;
+            }
+            else
+            {
+                saveListMenu.SetActive(true);
+                isSaveShown = true;
+            }
         }
         else
         {

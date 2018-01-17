@@ -2,9 +2,7 @@
 Source/.collabignore
 Source/Library/*
 Source/Temp/*
-Source/.vs/Source/v15/.suo
-Source/.vs/Source/v15/Server/sqlite3/db.lock
-Source/.vs/Source/v15/Server/sqlite3/storage.ide
+Source/.vs/*
 Source/Source.csproj
 Source/Source.Editor.csproj
 Source/Source.sln
