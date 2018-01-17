@@ -135,6 +135,16 @@ public class TestDictationRecognizer : MonoBehaviour
         {
             SaveManager.Instance.Load("saveC");
         }
+        else if (string.Equals(text, "show list"))
+        {   
+            // ONLY USE FOR TESTING SAVE LIST
+            print("Saved List size: " + SaveManager.Instance.saveList.Count);
+            for (int index = 0; index < SaveManager.Instance.saveList.Count; index++)
+            {
+                print(index + " : " + SaveManager.Instance.saveList[index]);
+            }
+
+        }
         else
         {
             newTextMesh.createText();

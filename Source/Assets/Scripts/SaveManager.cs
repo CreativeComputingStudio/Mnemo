@@ -5,6 +5,7 @@ using UnityEngine;
 public class SaveManager : MonoBehaviour {
 
     private static SaveManager instance;
+    public List<string> saveList;
 
     public List<SaveableObject> saveableObjects { get; private set; }
 
@@ -20,21 +21,18 @@ public class SaveManager : MonoBehaviour {
         }
     }
 
-
 	// Use this for initialization
 	void Awake () {
         saveableObjects = new List<SaveableObject> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        saveList = new List<string>();
 	}
 
+    // Main Save method based on voice ID
     public void Save (string saveID)
     {
         // save total number of objects saved
         PlayerPrefs.SetInt(saveID, saveableObjects.Count);
+        saveList.Add(saveID);
 
         // loop the list and save all objects
         for (int indexOfList = 0; indexOfList < saveableObjects.Count; indexOfList++)
@@ -43,6 +41,7 @@ public class SaveManager : MonoBehaviour {
         }
     }
 
+    // Main Load method based on voice ID
     public void Load (string saveID)
     {
         // Erase old objects before loading
@@ -77,10 +76,10 @@ public class SaveManager : MonoBehaviour {
             {
                 tmpObj.GetComponent<SaveableObject>().Load(value);
             }
-            
         }  
     }
 
+    // function for converting strings
     public Vector3 StringToVector (string value)
     {
         try
@@ -100,6 +99,7 @@ public class SaveManager : MonoBehaviour {
         }
     }
 
+    // function for converting strings
     public Quaternion StringToQuaternion (string value)
     {
         try
