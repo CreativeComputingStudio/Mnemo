@@ -190,17 +190,17 @@ public class TestDictationRecognizer : MonoBehaviour
             SaveManager.Instance.Load(tmpLoadStr);
             print(tmpLoadStr);
         }
-        else if (string.Equals(text, "show archive"))
+        else if (string.Equals(text, "show files"))
         {
             // ONLY USE FOR TESTING SAVE LIST
             TextMesh currentText = saveListMenu.GetComponent<TextMesh>();
             currentText.text = "Saves\n";
             currentText.text += "save A"+"\n";
-            print("Saved List size: " + SaveManager.Instance.saveList.Count);
+            //print("Saved List size: " + SaveManager.Instance.saveList.Count);
             for (int index = 0; index < SaveManager.Instance.saveList.Count; index++)
             {
                 currentText.text += SaveManager.Instance.saveList[index] + "\n";
-                print(index + " : " + SaveManager.Instance.saveList[index]);
+                //print(index + " : " + SaveManager.Instance.saveList[index]);
             }
 
             // disable other shown info menus
