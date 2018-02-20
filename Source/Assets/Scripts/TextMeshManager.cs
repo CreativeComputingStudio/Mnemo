@@ -58,7 +58,7 @@ public class TextMeshManager : MonoBehaviour {
             Color fadeColor = new Color(fadeColorValue, fadeColorValue, 1, 1);
             Meshes[indexOfList].color= fadeColor;
         }
-        Debug.Log("Meshes.Capacity: " + Meshes.Capacity);
+        //Debug.Log("Meshes.Capacity: " + Meshes.Capacity);
     }
 
     // Update is called once per frame

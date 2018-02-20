@@ -945,20 +945,15 @@ TextMesh:
 
     menu
 
-    disable map
-
-    enable map
+    enable/disable map
 
     clear text
 
-    save/load color red
+    save/load ...
 
-    save/load color blue
+    show archive
 
-    save/load color green
-
-
-'
+    information'
   m_OffsetZ: 0
   m_CharacterSize: 0.01
   m_LineSpacing: 1

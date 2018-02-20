@@ -126,29 +126,69 @@ public class TestDictationRecognizer : MonoBehaviour
                 isInfoShown = true;
             }
         }
-        else if (string.Equals(text, "save colour red"))
+        else if (text.Contains("save"))
         {
-            SaveManager.Instance.Save("saveA");
+            // initialization
+            string[] tmpStrs = text.Split(' ');
+            int tmpSaveID = -1;
+            string tmpSaveStr = "";
+            // find save ID string
+            for (int tmpIndex = 0; tmpIndex < tmpStrs.Length; tmpIndex++)
+            {
+                if (tmpSaveID == -1)
+                {
+                    if (string.Equals(tmpStrs[tmpIndex], "save"))
+                    {
+                        if (tmpIndex < tmpStrs.Length - 1)
+                        {
+                            tmpSaveID = tmpIndex;
+                        }
+                        continue;
+                    }
+                }
+                else if (tmpSaveID != -1)
+                {
+                    tmpSaveStr += tmpStrs[tmpIndex]+" ";
+                }
+            }
+
+            // remove last space
+            tmpSaveStr = tmpSaveStr.Remove(tmpSaveStr.Length - 1);
+            // call save
+            SaveManager.Instance.Save(tmpSaveStr);
+            print(tmpSaveStr);
         }
-        else if (string.Equals(text, "save colour blue"))
+        else if (text.Contains("load"))
         {
-            SaveManager.Instance.Save("saveB");
-        }
-        else if (string.Equals(text, "save colour green"))
-        {
-            SaveManager.Instance.Save("saveC");
-        }
-        else if (string.Equals(text, "load colour red"))
-        {
-            SaveManager.Instance.Load("saveA");
-        }
-        else if (string.Equals(text, "load colour blue"))
-        {
-            SaveManager.Instance.Load("saveB");
-        }
-        else if (string.Equals(text, "load colour green"))
-        {
-            SaveManager.Instance.Load("saveC");
+            // initialization
+            string[] tmpStrs = text.Split(' ');
+            int tmpLoadID = -1;
+            string tmpLoadStr = "";
+            // find load ID string
+            for (int tmpIndex = 0; tmpIndex < tmpStrs.Length; tmpIndex++)
+            {
+                if (tmpLoadID == -1)
+                {
+                    if (string.Equals(tmpStrs[tmpIndex], "load"))
+                    {
+                        if (tmpIndex < tmpStrs.Length - 1)
+                        {
+                            tmpLoadID = tmpIndex;
+                        }
+                        continue;
+                    }
+                }
+                else if (tmpLoadID != -1)
+                {
+                    tmpLoadStr += tmpStrs[tmpIndex] + " ";
+                }
+            }
+
+            // remove last space
+            tmpLoadStr = tmpLoadStr.Remove(tmpLoadStr.Length - 1);
+            // call load
+            SaveManager.Instance.Load(tmpLoadStr);
+            print(tmpLoadStr);
         }
         else if (string.Equals(text, "show archive"))
         {
@@ -159,6 +199,7 @@ public class TestDictationRecognizer : MonoBehaviour
             print("Saved List size: " + SaveManager.Instance.saveList.Count);
             for (int index = 0; index < SaveManager.Instance.saveList.Count; index++)
             {
+                currentText.text += SaveManager.Instance.saveList[index] + "\n";
                 print(index + " : " + SaveManager.Instance.saveList[index]);
             }
 

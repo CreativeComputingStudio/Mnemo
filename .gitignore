@@ -6,3 +6,4 @@ Source/.vs/*
 Source/Source.csproj
 Source/Source.Editor.csproj
 Source/Source.sln
+Source/UWP/*
