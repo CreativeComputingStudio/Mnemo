@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/HoloToolkit-Examples/Sharing/SharingService/Scenes/SharingTest.unity
-    guid: 569d545af7438ca47acc54671fc57d2e
+    path: Assets/Scenes/Mnemo - v1.1 - SharingTest.unity
+    guid: f93f947ea6b559e498decead908c9a12
