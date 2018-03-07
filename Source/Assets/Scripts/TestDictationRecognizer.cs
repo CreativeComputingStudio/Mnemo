@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Windows.Speech;
 
+
 public class TestDictationRecognizer : MonoBehaviour
 {
     DictationRecognizer dictationRecognizer;
@@ -30,6 +31,10 @@ public class TestDictationRecognizer : MonoBehaviour
     /// </summary>
     public GameObject saveListMenu;
     /// <summary>
+    /// Attach to sharing object manager
+    /// </summary>
+    public GameObject sharingManager;
+    /// <summary>
     /// flag of menu status
     /// </summary>
     private bool isMenuShown = false;
@@ -48,12 +53,14 @@ public class TestDictationRecognizer : MonoBehaviour
 
     void Update()
     {
+        // showing speech status
         if (dictationRecognizer.Status == SpeechSystemStatus.Running)
         {
             Debug.LogFormat("Status: " + dictationRecognizer.Status);
         }
     }
 
+    // Enable dictation recognizer function
     public void enableDictation()
     {
         dictationRecognizer = new DictationRecognizer();
@@ -68,11 +75,12 @@ public class TestDictationRecognizer : MonoBehaviour
 
     void onDictationResult(string text, ConfidenceLevel confidence)
     {
-        // write your logic here
+        // debug text
         Debug.LogFormat("Confidence: " + confidence+ " Dictation result: " + text);
         showDictation.text = text;
 
         // add voice commands
+        // write your logic here
         if (string.Equals(text, "disable map"))
         {
             print("Commands: disable map");
@@ -100,7 +108,8 @@ public class TestDictationRecognizer : MonoBehaviour
             {
                 menuObject.SetActive(false);
                 isMenuShown = false;
-            } else
+            }
+            else
             {
                 menuObject.SetActive(true);
                 isMenuShown = true;
@@ -148,7 +157,7 @@ public class TestDictationRecognizer : MonoBehaviour
                 }
                 else if (tmpSaveID != -1)
                 {
-                    tmpSaveStr += tmpStrs[tmpIndex]+" ";
+                    tmpSaveStr += tmpStrs[tmpIndex] + " ";
                 }
             }
 
@@ -190,17 +199,23 @@ public class TestDictationRecognizer : MonoBehaviour
             SaveManager.Instance.Load(tmpLoadStr);
             print(tmpLoadStr);
         }
-        else if (string.Equals(text, "show files"))
+        else if (string.Equals(text, "browse"))
         {
             // ONLY USE FOR TESTING SAVE LIST
             TextMesh currentText = saveListMenu.GetComponent<TextMesh>();
-            currentText.text = "Saves\n";
-            currentText.text += "save A"+"\n";
+            currentText.text = " - Browse List - \n";
             //print("Saved List size: " + SaveManager.Instance.saveList.Count);
-            for (int index = 0; index < SaveManager.Instance.saveList.Count; index++)
+            if (SaveManager.Instance.saveList.Count < 1)
             {
-                currentText.text += SaveManager.Instance.saveList[index] + "\n";
-                //print(index + " : " + SaveManager.Instance.saveList[index]);
+                currentText.text += " Empty \n";
+            }
+            else
+            {
+                for (int index = 0; index < SaveManager.Instance.saveList.Count; index++)
+                {
+                    currentText.text += SaveManager.Instance.saveList[index] + "\n";
+                    //print(index + " : " + SaveManager.Instance.saveList[index]);
+                }
             }
 
             // disable other shown info menus
@@ -223,6 +238,7 @@ public class TestDictationRecognizer : MonoBehaviour
         }
         else
         {
+            // single/multi player mode create text
             newTextMesh.createText();
         }
         showDictation.text = string.Empty;
