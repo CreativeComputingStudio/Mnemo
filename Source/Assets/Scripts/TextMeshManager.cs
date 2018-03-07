@@ -90,7 +90,7 @@ public class TextMeshManager : MonoBehaviour {
                 new SyncSpawnedObject(),
                 textMeshObject.transform.position,
                 faceToCreator,
-                this.gameObject,
+                null,
                 strID,
                 false);
             print("syncObjects: " + spawnManager.SyncSpawnObjectList.Count);
