@@ -85,6 +85,7 @@ public class TextMeshManager : MonoBehaviour {
 
             // using sharing service to create new texts
             Quaternion faceToCreator = Quaternion.LookRotation(textMeshObject.transform.position - Camera.main.transform.position);
+
             this.spawnManager.Spawn(
                 new SyncSpawnedObject(),
                 textMeshObject.transform.position,
@@ -92,6 +93,7 @@ public class TextMeshManager : MonoBehaviour {
                 this.gameObject,
                 strID,
                 false);
+            print("syncObjects: " + spawnManager.SyncSpawnObjectList.Count);
             // update ID list
             textID.Add(strID);
         } else
