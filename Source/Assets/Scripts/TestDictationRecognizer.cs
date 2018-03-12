@@ -31,10 +31,6 @@ public class TestDictationRecognizer : MonoBehaviour
     /// </summary>
     public GameObject saveListMenu;
     /// <summary>
-    /// Attach to sharing object manager
-    /// </summary>
-    public GameObject sharingManager;
-    /// <summary>
     /// flag of menu status
     /// </summary>
     private bool isMenuShown = false;
@@ -91,7 +87,7 @@ public class TestDictationRecognizer : MonoBehaviour
             print("Commands: enable map");
             mappingControl.GetComponent<SpatialMapping>().enableMeshRender();
         }
-        else if (string.Equals(text, "clear text"))
+        else if (string.Equals(text, "clear all"))
         {
             newTextMesh.clearText();
         }
@@ -235,6 +231,14 @@ public class TestDictationRecognizer : MonoBehaviour
                 saveListMenu.SetActive(true);
                 isSaveShown = true;
             }
+        }
+        else if (string.Equals(text, "quit"))
+        {
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
         }
         else
         {

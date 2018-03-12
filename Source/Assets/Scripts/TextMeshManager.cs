@@ -25,7 +25,8 @@ public class TextMeshManager : MonoBehaviour {
     public fadeLevel GrayLevel;
     // Total fade value based on fade level
     private float totalFadeValue;
-    private List<string> textID;
+    // Sync object list
+    public List<SyncSpawnedObject> SyncObjectList;
 
     // Text List
     public List<TextMesh> Meshes;
@@ -37,8 +38,8 @@ public class TextMeshManager : MonoBehaviour {
             instance = this;
 
             // Initialization of the text list
-            textID = new List<string>();
             Meshes = new List<TextMesh>();
+            SyncObjectList = new List<SyncSpawnedObject>();
             Meshes.Capacity = 256;
             // Setup total fade value based on selected fade level
             if (GrayLevel == fadeLevel.Large) totalFadeValue = 255f;
@@ -77,31 +78,33 @@ public class TextMeshManager : MonoBehaviour {
     public void createText ()
     {
         // multiplayer text creation mode
-        if(spawnManager.isActiveAndEnabled)
+        if(SharingStage.IsInitialized && SharingStage.Instance.IsConnected)
         {
-            // setup
-            int newID = textID.Count;
-            string strID = newID.ToString();
-
             // using sharing service to create new texts
             Quaternion faceToCreator = Quaternion.LookRotation(textMeshObject.transform.position - Camera.main.transform.position);
-
+            SyncSpawnedObject tmpSynObj = new SyncSpawnedObject();
+            // call spawn manager to spawn sync object
             this.spawnManager.Spawn(
-                new SyncSpawnedObject(),
+                tmpSynObj,
                 textMeshObject.transform.position,
                 faceToCreator,
                 null,
-                strID,
+                "SynObject",
                 false);
-            print("syncObjects: " + spawnManager.SyncSpawnObjectList.Count);
-            // update ID list
-            textID.Add(strID);
+            // update spawned object text
+            tmpSynObj.GameObject.GetComponent<TextMesh>().text = textMeshObject.GetComponent<TextMesh>().text;
+            tmpSynObj.GameObject.GetComponent<TextMesh>().color = Color.green;
+
+            // update list
+            SyncObjectList.Add(tmpSynObj);
         } else
         {
             // local text creation mode
             // Create new text on the gaze position
             GameObject tempText = Instantiate(Resources.Load("Prefab/CursorText"), textMeshObject.transform.position, textMeshObject.transform.rotation) as GameObject;
             tempText.GetComponent<TextMesh>().text = textMeshObject.GetComponent<TextMesh>().text;
+            // set single mode color to blue
+            tempText.GetComponent<TextMesh>().color = Color.blue;
             // Set new text face to player
             tempText.transform.rotation = Quaternion.LookRotation(tempText.transform.position - Camera.main.transform.position);
             // Store new text to a list and can be used later
@@ -121,6 +124,20 @@ public class TextMeshManager : MonoBehaviour {
             Destroy(destroyObj);
         }
 
+        for (int indexOfSyncList = SyncObjectList.Count - 1; indexOfSyncList >= 0; indexOfSyncList--)
+        {
+            // assign temp pointer to the Text object
+            SyncSpawnedObject destroySyncObj = SyncObjectList[indexOfSyncList];
+            if (destroySyncObj != null)
+            {
+                // remove Text object from the list
+                SyncObjectList.RemoveAt(indexOfSyncList);
+                // delete Text object in the world
+                spawnManager.Delete(destroySyncObj);
+            }
+        }
+
+        // clear savable object list
         SaveManager.Instance.saveableObjects.Clear();
     }
 }
