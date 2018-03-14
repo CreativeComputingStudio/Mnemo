@@ -31,6 +31,10 @@ public class TestDictationRecognizer : MonoBehaviour
     /// </summary>
     public GameObject saveListMenu;
     /// <summary>
+    /// Attach to connection menu
+    /// </summary>
+    public GameObject connectionMenu;
+    /// <summary>
     /// flag of menu status
     /// </summary>
     private bool isMenuShown = false;
@@ -77,20 +81,24 @@ public class TestDictationRecognizer : MonoBehaviour
 
         // add voice commands
         // write your logic here
+        // command: disable map - disable mesh render 
         if (string.Equals(text, "disable map"))
         {
             print("Commands: disable map");
             mappingControl.GetComponent<SpatialMapping>().disableMeshRender();
         }
+        // command: enable map - enable mesh render
         else if (string.Equals(text, "enable map"))
         {
             print("Commands: enable map");
             mappingControl.GetComponent<SpatialMapping>().enableMeshRender();
         }
+        // command: clear all - clear all text
         else if (string.Equals(text, "clear all"))
         {
             newTextMesh.clearText();
         }
+        // command: menu - enable or disable main menu
         else if (string.Equals(text, "menu"))
         {
             // disable other shown info menus
@@ -111,6 +119,7 @@ public class TestDictationRecognizer : MonoBehaviour
                 isMenuShown = true;
             }
         }
+        // command: information - enable or disable information menu
         else if (string.Equals(text, "information"))
         {
             // disable other shown info menus
@@ -131,6 +140,18 @@ public class TestDictationRecognizer : MonoBehaviour
                 isInfoShown = true;
             }
         }
+        // command: connection - enable or disable connection menu
+        else if (string.Equals(text, "connection"))
+        {
+            if (connectionMenu.activeSelf)
+            {
+                connectionMenu.SetActive(false);
+            } else
+            {
+                connectionMenu.SetActive(true);
+            }
+        }
+        // command: save - save all text
         else if (text.Contains("save"))
         {
             // initialization
@@ -163,6 +184,7 @@ public class TestDictationRecognizer : MonoBehaviour
             SaveManager.Instance.Save(tmpSaveStr);
             print(tmpSaveStr);
         }
+        // command: load - load text based on saved name
         else if (text.Contains("load"))
         {
             // initialization
@@ -195,6 +217,7 @@ public class TestDictationRecognizer : MonoBehaviour
             SaveManager.Instance.Load(tmpLoadStr);
             print(tmpLoadStr);
         }
+        // command: browse - show all saved files' name
         else if (string.Equals(text, "browse"))
         {
             // ONLY USE FOR TESTING SAVE LIST
@@ -232,6 +255,7 @@ public class TestDictationRecognizer : MonoBehaviour
                 isSaveShown = true;
             }
         }
+        // command: quit - exit the application
         else if (string.Equals(text, "quit"))
         {
             #if UNITY_EDITOR
@@ -240,6 +264,7 @@ public class TestDictationRecognizer : MonoBehaviour
                 Application.Quit();
             #endif
         }
+        // end of voice commands
         else
         {
             // single/multi player mode create text

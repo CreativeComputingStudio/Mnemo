@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Mnemo - v1.1 - SharingTest.unity
-    guid: f93f947ea6b559e498decead908c9a12
+    path: Assets/Scenes/Mnemo - v1.3 - SharingFuncComplete.unity
+    guid: e19fdbb8e2ae4304c8b80e835f085f3e

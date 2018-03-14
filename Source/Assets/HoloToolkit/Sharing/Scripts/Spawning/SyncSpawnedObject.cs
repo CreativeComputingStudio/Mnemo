@@ -35,6 +35,11 @@ namespace HoloToolkit.Sharing.Spawning
         /// </summary>
         [SyncData] public SyncString ObjectPath;
 
+        /// <summary>
+        /// Mesh Text String to the object
+        /// </summary>
+        [SyncData] public SyncString MeshTextString;
+
 
         public GameObject GameObject { get; set; }
 
@@ -42,6 +47,7 @@ namespace HoloToolkit.Sharing.Spawning
         {
             Name.Value = name;
             ParentPath.Value = parentPath;
+            MeshTextString.Value = string.Empty;
 
             ObjectPath.Value = string.Empty;
             if (!string.IsNullOrEmpty(ParentPath.Value))

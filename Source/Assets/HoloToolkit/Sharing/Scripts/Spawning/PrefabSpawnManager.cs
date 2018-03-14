@@ -128,7 +128,7 @@ namespace HoloToolkit.Sharing.Spawning
         /// An object that is locally owned will be removed from the sync system when its owner leaves the session.
         /// </param>
         /// <returns>True if spawning succeeded, false if not.</returns>
-        public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, Vector3? localScale, GameObject parent, string baseName, bool isOwnedLocally)
+        public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, Vector3? localScale, GameObject parent, string baseName, bool isOwnedLocally, string textMeshStr)
         {
             if (SyncSource == null)
             {
@@ -161,6 +161,7 @@ namespace HoloToolkit.Sharing.Spawning
             dataModel.Initialize(instanceName, parent.transform.GetFullPath("/"));
             dataModel.Transform.Position.Value = localPosition;
             dataModel.Transform.Rotation.Value = localRotation;
+            dataModel.MeshTextString.Value = textMeshStr;
             if (localScale.HasValue)
             {
                 dataModel.Transform.Scale.Value = localScale.Value;
@@ -195,7 +196,12 @@ namespace HoloToolkit.Sharing.Spawning
         /// <returns>True if the function succeeded, false if not.</returns>
         public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, GameObject parent, string baseName, bool isOwnedLocally)
         {
-            return Spawn(dataModel, localPosition, localRotation, null, parent, baseName, isOwnedLocally);
+            return Spawn(dataModel, localPosition, localRotation, null, parent, baseName, isOwnedLocally, string.Empty);
+        }
+
+        public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, GameObject parent, string baseName, bool isOwnedLocally, string textMeshStr)
+        {
+            return Spawn(dataModel, localPosition, localRotation, null, parent, baseName, isOwnedLocally, textMeshStr);
         }
 
         protected override void SetDataModelSource()
@@ -222,6 +228,7 @@ namespace HoloToolkit.Sharing.Spawning
             instance.transform.localScale = dataModel.Transform.Scale.Value;
             instance.transform.SetParent(parentObject.transform, false);
             instance.gameObject.name = objectName;
+            instance.gameObject.GetComponent<TextMesh>().text = dataModel.MeshTextString.Value;
 
             dataModel.GameObject = instance;
 

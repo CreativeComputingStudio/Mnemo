@@ -90,7 +90,8 @@ public class TextMeshManager : MonoBehaviour {
                 faceToCreator,
                 null,
                 "SynObject",
-                false);
+                false,
+                textMeshObject.GetComponent<TextMesh>().text);
             // update spawned object text
             tmpSynObj.GameObject.GetComponent<TextMesh>().text = textMeshObject.GetComponent<TextMesh>().text;
             tmpSynObj.GameObject.GetComponent<TextMesh>().color = Color.green;
