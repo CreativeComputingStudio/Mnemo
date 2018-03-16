@@ -5,4 +5,10 @@ Developed at the Creative Computing Studio, University of South Australia by Sim
 
 Mnemo is free to use and share non-commercially under a Creative Commons licence Attribution-NonCommercial-ShareAlike 4.0 International.
 
+System Requirements:
+Microsoft Windows 10
 Unity Version: 2017.1.0.p5
+
+Target Device:
+Microsoft Hololens
+

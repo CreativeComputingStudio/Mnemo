@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 enum ObjectType { UserTextMesh }
-
+/**
+ * Class for saveable objects
+**/
 public abstract class SaveableObject : MonoBehaviour {
 
     protected string saveStats;
@@ -16,6 +18,7 @@ public abstract class SaveableObject : MonoBehaviour {
         SaveManager.Instance.saveableObjects.Add(this);
 	}
 	
+    // method for saving objects
 	public virtual void Save (int id, string saveID)
     {   // saveID-id
         PlayerPrefs.SetString(saveID + "-" + id.ToString(), objectType + "_" + transform.localPosition.ToString()
@@ -24,6 +27,7 @@ public abstract class SaveableObject : MonoBehaviour {
             + "_" + saveStats);
     }
 
+    // method for loading previous saves
     public virtual void Load (string[] values)
     {
         transform.localPosition = SaveManager.Instance.StringToVector(values[1]);
@@ -31,6 +35,7 @@ public abstract class SaveableObject : MonoBehaviour {
         transform.localRotation = SaveManager.Instance.StringToQuaternion(values[3]);
     }
 
+    // method for destroying objects
     public void DestroySaveable ()
     {
         SaveManager.Instance.saveableObjects.Remove(this);

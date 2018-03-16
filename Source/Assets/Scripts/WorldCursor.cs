@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-
+/**
+ * Class for cursor position in world space
+**/
 public class WorldCursor : MonoBehaviour
 {
     private MeshRenderer meshRenderer;

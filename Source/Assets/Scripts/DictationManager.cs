@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Windows.Speech;
-
+/**
+ * Example dictation manager class for Testing
+**/
 public class DictationManager : MonoBehaviour
 {
-
     DictationRecognizer dictationRecognizer;
-
 
     // Use this for initialization
     void Start()

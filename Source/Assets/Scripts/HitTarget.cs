@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-
+/**
+ * Class for collision testing
+**/
 public class HitTarget : MonoBehaviour
 {
     // These public fields become settable properties in the Unity editor.

@@ -2,46 +2,34 @@
 using System.Collections;
 using UnityEngine.Windows.Speech;
 
-
+/**
+ * Class for dictation recognizer
+ * Handling all voice commands
+**/
 public class TestDictationRecognizer : MonoBehaviour
 {
+    // dictation recognizer from holotool-kit
     DictationRecognizer dictationRecognizer;
-    /// <summary>
-    /// Object attach to text mesh
-    /// </summary>
+    // object attached to text mesh
     public TextMesh showDictation;
-    /// <summary>
-    /// Attach to TextMeshManager.cs
-    /// </summary>
+    // object attached to TextMeshManager.cs
     public TextMeshManager newTextMesh;
-    /// <summary>
-    /// Attach to spatialMapping.cs
-    /// </summary>
+    // object attached to spatialMapping.cs
     public GameObject mappingControl;
-    /// <summary>
-    /// Attach to game menu
-    /// </summary>
+    // object attached to game menu
     public GameObject menuObject;
-    /// <summary>
-    /// Attach to developer info menu
-    /// </summary>
+    // object attached to developer info menu
     public GameObject infoMenu;
-    /// <summary>
-    /// Attach to Save list info menu
-    /// </summary>
+    // object attached to Save list info menu
     public GameObject saveListMenu;
-    /// <summary>
-    /// Attach to connection menu
-    /// </summary>
+    // object attached to connection menu
     public GameObject connectionMenu;
-    /// <summary>
-    /// flag of menu status
-    /// </summary>
+    // flag of menu status
     private bool isMenuShown = false;
     private bool isInfoShown = false;
     private bool isSaveShown = false;
 
-    // Use this for initialization
+    // use this for initialization
     void Start()
     {
         if(menuObject.activeSelf)
@@ -60,7 +48,7 @@ public class TestDictationRecognizer : MonoBehaviour
         }
     }
 
-    // Enable dictation recognizer function
+    // enable dictation recognizer function
     public void enableDictation()
     {
         dictationRecognizer = new DictationRecognizer();
@@ -73,6 +61,7 @@ public class TestDictationRecognizer : MonoBehaviour
         dictationRecognizer.Start();
     }
 
+    // method for voice commands triggering
     void onDictationResult(string text, ConfidenceLevel confidence)
     {
         // debug text
@@ -273,16 +262,18 @@ public class TestDictationRecognizer : MonoBehaviour
         showDictation.text = string.Empty;
     }
 
+    // method for dication manager hypothesis results
     void onDictationHypothesis(string text)
     {
-        // write your logic here
+        // print hypothesis results
         Debug.LogFormat("Dictation hypothesis: {0}", text);
         showDictation.text = text+"...";
     }
 
+    // method for dictation manager complete results
     void onDictationComplete(DictationCompletionCause cause)
     {
-        // write your logic here
+        // return dictation result when complete status
         if (cause != DictationCompletionCause.Complete)
             Debug.LogFormat("Dictation completed unsuccessfully: {0}.", cause);
         else
@@ -290,9 +281,10 @@ public class TestDictationRecognizer : MonoBehaviour
         Invoke("enableDictation", 1f);
     }
 
+    // method for dictation manager error results
     void onDictationError(string error, int hresult)
     {
-        // write your logic here
+        // report error when flag
         Debug.LogFormat("Dictation error: {0}; HResult = {1}.", error, hresult);
         Invoke("enableDictation", 1f);
     }

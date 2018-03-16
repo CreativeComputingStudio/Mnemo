@@ -6,9 +6,13 @@ using HoloToolkit.Sharing;
 using HoloToolkit.Sharing.Spawning;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine.VR.WSA.Input;
-
+/**
+ * Class for managing text mesh in scene.
+ * 
+**/
 public class TextMeshManager : MonoBehaviour {
 
+    // public text mesh mananger instance
     public static TextMeshManager instance;
     // Text Mesh Object
     public GameObject textMeshObject;
@@ -51,6 +55,7 @@ public class TextMeshManager : MonoBehaviour {
         }
     }
 
+    // currently disabled
     private void Update()
     {
         // Text fade based on Time
@@ -113,6 +118,7 @@ public class TextMeshManager : MonoBehaviour {
         }
     }
 
+    // method for clear all texts in scene
     public void clearText ()
     {
         for (int indexOfList = Meshes.Count - 1; indexOfList >= 0; indexOfList--)

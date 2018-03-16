@@ -264,7 +264,6 @@ GameObject:
   m_Component:
   - component: {fileID: 136969752}
   - component: {fileID: 136969753}
-  - component: {fileID: 136969754}
   - component: {fileID: 136969755}
   m_Layer: 0
   m_Name: MenuAndCollection
@@ -298,17 +297,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8833f9012ed5fe14a91e95a37520b96d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &136969754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 136969751}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc19e98e2eaa605438eef37a02fe42df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &136969755
@@ -683,7 +671,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 738432373}
-  - component: {fileID: 738432371}
   - component: {fileID: 738432374}
   m_Layer: 0
   m_Name: AnchorManager
@@ -692,18 +679,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &738432371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 738432370}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 611424ee194e77548821317664410089, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextMeshManagerObject: {fileID: 0}
 --- !u!4 &738432373
 Transform:
   m_ObjectHideFlags: 0

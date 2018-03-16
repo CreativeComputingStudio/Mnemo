@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.VR.WSA.Input;
-
+/**
+ * Class for gestrue and gaze commands
+**/
 public class GazeGestureManager : MonoBehaviour
 {
     public static GazeGestureManager Instance { get; private set; }

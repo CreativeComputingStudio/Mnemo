@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/**
+ * Class for specific saveable objects
+**/
 public class SpecificObject : SaveableObject {
 
     // Deleted Start () function in case it is not override

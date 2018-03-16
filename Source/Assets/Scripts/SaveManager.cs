@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/**
+ * Class for saving game objects in current scene.
+**/
 public class SaveManager : MonoBehaviour {
 
+    // save manager instance for public call
     private static SaveManager instance;
+    // list for all saved objects' name
     public List<string> saveList;
-
+    // list for all saved game objects
     public List<SaveableObject> saveableObjects { get; private set; }
 
+    // instance initializtion
     public static SaveManager Instance
     {
         get
@@ -21,13 +26,13 @@ public class SaveManager : MonoBehaviour {
         }
     }
 
-	// Use this for initialization
+	// use this for awake phase initialization
 	void Awake () {
         saveableObjects = new List<SaveableObject> ();
         saveList = new List<string>();
 	}
 
-    // Main Save method based on voice ID
+    // main Save method based on voice ID
     public void Save (string saveID)
     {
         // save total number of objects saved
@@ -41,10 +46,10 @@ public class SaveManager : MonoBehaviour {
         }
     }
 
-    // Main Load method based on voice ID
+    // main Load method based on voice ID
     public void Load (string saveID)
     {
-        // Erase old objects before loading
+        // erase old objects before loading
         foreach (SaveableObject obj in saveableObjects)
         {
             if (obj != null)
@@ -52,6 +57,7 @@ public class SaveManager : MonoBehaviour {
                 Destroy(obj.gameObject);
             }
         }
+        // clear saved lists
         saveableObjects.Clear();
         TextMeshManager.instance.clearText();
 
