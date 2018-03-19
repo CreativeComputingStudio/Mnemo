@@ -20,6 +20,8 @@ public class CursorManager : MonoBehaviour
     void Update () {
 		if (cursorText.text == string.Empty || string.Equals(cursorText.text, "|"))
         {
+            // set color of text
+            TextColorManager.instance.isWhite = false;
             if (Time.time - m_TimeStamp >= 0.5)
             {
                 m_TimeStamp = Time.time;

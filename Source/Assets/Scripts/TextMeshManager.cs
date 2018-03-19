@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using HoloToolkit.Sharing;
 using HoloToolkit.Sharing.Spawning;
 using HoloToolkit.Unity.InputModule;
@@ -85,6 +84,8 @@ public class TextMeshManager : MonoBehaviour {
         // multiplayer text creation mode
         if(SharingStage.IsInitialized && SharingStage.Instance.IsConnected)
         {
+            // set color
+            TextColorManager.instance.isWhite = true;
             // using sharing service to create new texts
             Quaternion faceToCreator = Quaternion.LookRotation(textMeshObject.transform.position - Camera.main.transform.position);
             SyncSpawnedObject tmpSynObj = new SyncSpawnedObject();
@@ -99,8 +100,7 @@ public class TextMeshManager : MonoBehaviour {
                 textMeshObject.GetComponent<TextMesh>().text);
             // update spawned object text
             tmpSynObj.GameObject.GetComponent<TextMesh>().text = textMeshObject.GetComponent<TextMesh>().text;
-            tmpSynObj.GameObject.GetComponent<TextMesh>().color = Color.green;
-
+            //tmpSynObj.GameObject.GetComponent<TextMesh>().color = Color.white;
             // update list
             SyncObjectList.Add(tmpSynObj);
         } else
@@ -110,7 +110,7 @@ public class TextMeshManager : MonoBehaviour {
             GameObject tempText = Instantiate(Resources.Load("Prefab/CursorText"), textMeshObject.transform.position, textMeshObject.transform.rotation) as GameObject;
             tempText.GetComponent<TextMesh>().text = textMeshObject.GetComponent<TextMesh>().text;
             // set single mode color to blue
-            tempText.GetComponent<TextMesh>().color = Color.blue;
+            tempText.GetComponent<TextMesh>().color = Color.white;
             // Set new text face to player
             tempText.transform.rotation = Quaternion.LookRotation(tempText.transform.position - Camera.main.transform.position);
             // Store new text to a list and can be used later

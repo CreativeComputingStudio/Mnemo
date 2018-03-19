@@ -24,6 +24,11 @@ public class TestDictationRecognizer : MonoBehaviour
     public GameObject saveListMenu;
     // object attached to connection menu
     public GameObject connectionMenu;
+    // object attached to debug log
+    public MeshRenderer debugLog;
+    // object attached to debug sphere
+    public MeshRenderer debugSphere;
+    public Collider debugSphereCollider;
     // flag of menu status
     private bool isMenuShown = false;
     private bool isInfoShown = false;
@@ -135,9 +140,15 @@ public class TestDictationRecognizer : MonoBehaviour
             if (connectionMenu.activeSelf)
             {
                 connectionMenu.SetActive(false);
+                debugLog.enabled = false;
+                debugSphere.enabled = false;
+                debugSphereCollider.enabled = false;
             } else
             {
                 connectionMenu.SetActive(true);
+                debugLog.enabled = true;
+                debugSphere.enabled = true;
+                debugSphereCollider.enabled = true;
             }
         }
         // command: save - save all text

@@ -35,6 +35,16 @@ namespace HoloToolkit.Sharing.Spawning
         private List<PrefabToDataModel> spawnablePrefabs = null;
 
         private Dictionary<string, GameObject> typeToPrefab;
+        // Color List for text mesh
+        private List<Color> colorList = new List<Color>()
+        {
+            Color.red,
+            Color.blue,
+            Color.cyan,
+            Color.yellow,
+            Color.green,
+            Color.magenta
+        };
 
         /// <summary>
         /// Counter used to create objects and make sure that no two objects created
@@ -162,6 +172,7 @@ namespace HoloToolkit.Sharing.Spawning
             dataModel.Transform.Position.Value = localPosition;
             dataModel.Transform.Rotation.Value = localRotation;
             dataModel.MeshTextString.Value = textMeshStr;
+
             if (localScale.HasValue)
             {
                 dataModel.Transform.Scale.Value = localScale.Value;
@@ -229,6 +240,7 @@ namespace HoloToolkit.Sharing.Spawning
             instance.transform.SetParent(parentObject.transform, false);
             instance.gameObject.name = objectName;
             instance.gameObject.GetComponent<TextMesh>().text = dataModel.MeshTextString.Value;
+            instance.gameObject.GetComponent<TextMesh>().color = colorList[UnityEngine.Random.Range(0, colorList.Count - 1)];
 
             dataModel.GameObject = instance;
 
