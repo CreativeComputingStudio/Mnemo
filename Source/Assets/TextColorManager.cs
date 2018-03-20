@@ -14,6 +14,8 @@ public class TextColorManager : MonoBehaviour {
     public static TextColorManager instance;
     // color flag
     public bool isWhite;
+    // sharing text color
+    public int colorIndex;
 
     private void Start()
     {
@@ -21,6 +23,8 @@ public class TextColorManager : MonoBehaviour {
         {
             instance = this;
             isWhite = false;
+            // random a index number to pick color
+            colorIndex = UnityEngine.Random.Range(0,14);
         }
         else if (instance != null)
         {

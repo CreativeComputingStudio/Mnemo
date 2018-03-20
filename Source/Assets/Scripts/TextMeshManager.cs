@@ -85,7 +85,7 @@ public class TextMeshManager : MonoBehaviour {
         if(SharingStage.IsInitialized && SharingStage.Instance.IsConnected)
         {
             // set color
-            TextColorManager.instance.isWhite = true;
+            //TextColorManager.instance.isWhite = true;
             // using sharing service to create new texts
             Quaternion faceToCreator = Quaternion.LookRotation(textMeshObject.transform.position - Camera.main.transform.position);
             SyncSpawnedObject tmpSynObj = new SyncSpawnedObject();
@@ -97,7 +97,8 @@ public class TextMeshManager : MonoBehaviour {
                 null,
                 "SynObject",
                 false,
-                textMeshObject.GetComponent<TextMesh>().text);
+                textMeshObject.GetComponent<TextMesh>().text,
+                TextColorManager.instance.colorIndex);
             // update spawned object text
             tmpSynObj.GameObject.GetComponent<TextMesh>().text = textMeshObject.GetComponent<TextMesh>().text;
             //tmpSynObj.GameObject.GetComponent<TextMesh>().color = Color.white;

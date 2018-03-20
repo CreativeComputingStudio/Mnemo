@@ -40,6 +40,11 @@ namespace HoloToolkit.Sharing.Spawning
         /// </summary>
         [SyncData] public SyncString MeshTextString;
 
+        /// <summary>
+        /// Color of the Text Mesh
+        /// </summary>
+        [SyncData] public SyncInteger ColorOfString;
+
 
         public GameObject GameObject { get; set; }
 
@@ -48,6 +53,7 @@ namespace HoloToolkit.Sharing.Spawning
             Name.Value = name;
             ParentPath.Value = parentPath;
             MeshTextString.Value = string.Empty;
+            ColorOfString.Value = 0;
 
             ObjectPath.Value = string.Empty;
             if (!string.IsNullOrEmpty(ParentPath.Value))

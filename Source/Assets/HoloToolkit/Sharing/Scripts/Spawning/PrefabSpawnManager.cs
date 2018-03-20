@@ -43,7 +43,17 @@ namespace HoloToolkit.Sharing.Spawning
             Color.cyan,
             Color.yellow,
             Color.green,
-            Color.magenta
+            Color.magenta,
+            new Color(0.35f,1f,0.64f),
+            new Color(0.35f,0.98f,1f),
+            new Color(0.35f,0.74f,1f),
+            new Color(0.55f,0.35f,1f),
+            new Color(0.82f,0.35f,1f),
+            new Color(1f,0.35f,0.69f),
+            new Color(1f,0.35f,0.53f),
+            new Color(1f,0.75f,0.35f),
+            new Color(1f,0.94f,0.35f)
+
         };
 
         /// <summary>
@@ -138,7 +148,7 @@ namespace HoloToolkit.Sharing.Spawning
         /// An object that is locally owned will be removed from the sync system when its owner leaves the session.
         /// </param>
         /// <returns>True if spawning succeeded, false if not.</returns>
-        public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, Vector3? localScale, GameObject parent, string baseName, bool isOwnedLocally, string textMeshStr)
+        public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, Vector3? localScale, GameObject parent, string baseName, bool isOwnedLocally, string textMeshStr, int colorOfText)
         {
             if (SyncSource == null)
             {
@@ -172,6 +182,7 @@ namespace HoloToolkit.Sharing.Spawning
             dataModel.Transform.Position.Value = localPosition;
             dataModel.Transform.Rotation.Value = localRotation;
             dataModel.MeshTextString.Value = textMeshStr;
+            dataModel.ColorOfString.Value = colorOfText;
 
             if (localScale.HasValue)
             {
@@ -207,12 +218,12 @@ namespace HoloToolkit.Sharing.Spawning
         /// <returns>True if the function succeeded, false if not.</returns>
         public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, GameObject parent, string baseName, bool isOwnedLocally)
         {
-            return Spawn(dataModel, localPosition, localRotation, null, parent, baseName, isOwnedLocally, string.Empty);
+            return Spawn(dataModel, localPosition, localRotation, null, parent, baseName, isOwnedLocally, string.Empty, 0);
         }
 
-        public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, GameObject parent, string baseName, bool isOwnedLocally, string textMeshStr)
+        public bool Spawn(SyncSpawnedObject dataModel, Vector3 localPosition, Quaternion localRotation, GameObject parent, string baseName, bool isOwnedLocally, string textMeshStr, int colorOfText)
         {
-            return Spawn(dataModel, localPosition, localRotation, null, parent, baseName, isOwnedLocally, textMeshStr);
+            return Spawn(dataModel, localPosition, localRotation, null, parent, baseName, isOwnedLocally, textMeshStr, colorOfText);
         }
 
         protected override void SetDataModelSource()
@@ -240,7 +251,11 @@ namespace HoloToolkit.Sharing.Spawning
             instance.transform.SetParent(parentObject.transform, false);
             instance.gameObject.name = objectName;
             instance.gameObject.GetComponent<TextMesh>().text = dataModel.MeshTextString.Value;
-            instance.gameObject.GetComponent<TextMesh>().color = colorList[UnityEngine.Random.Range(0, colorList.Count - 1)];
+            instance.gameObject.GetComponent<TextMesh>().color = colorList[dataModel.ColorOfString.Value];
+            // Debug output
+            //print("Color Index: " + TextColorManager.instance.colorIndex);
+            //print("Color: " + colorList[TextColorManager.instance.colorIndex]);
+            //instance.gameObject.GetComponent<TextMesh>().color = colorList[UnityEngine.Random.Range(0,5)];
 
             dataModel.GameObject = instance;
 

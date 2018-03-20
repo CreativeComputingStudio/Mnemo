@@ -12,8 +12,6 @@ public class BlinkingCursor : MonoBehaviour
     private bool cursor = false;
     // cursor string
     private string cursorChar = "";
-    // length of the text
-    private int maxStringLength = 24;
 
     void Update()
     {
