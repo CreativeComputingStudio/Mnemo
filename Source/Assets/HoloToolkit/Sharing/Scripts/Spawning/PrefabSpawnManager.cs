@@ -39,11 +39,11 @@ namespace HoloToolkit.Sharing.Spawning
         private List<Color> colorList = new List<Color>()
         {
             Color.red,
-            Color.blue,
-            Color.cyan,
-            Color.yellow,
             Color.green,
+            Color.blue,
+            Color.yellow,
             Color.magenta,
+            Color.cyan,
             new Color(0.35f,1f,0.64f),
             new Color(0.35f,0.98f,1f),
             new Color(0.35f,0.74f,1f),

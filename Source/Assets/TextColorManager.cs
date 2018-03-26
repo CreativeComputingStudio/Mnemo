@@ -16,6 +16,8 @@ public class TextColorManager : MonoBehaviour {
     public bool isWhite;
     // sharing text color
     public int colorIndex;
+    // flag for locking color in sharing mode
+    public bool isLocked;
 
     private void Start()
     {
@@ -25,6 +27,7 @@ public class TextColorManager : MonoBehaviour {
             isWhite = false;
             // random a index number to pick color
             colorIndex = UnityEngine.Random.Range(0,14);
+            isLocked = false;
         }
         else if (instance != null)
         {
@@ -37,6 +40,12 @@ public class TextColorManager : MonoBehaviour {
         // in connection mode
         if (SharingStage.IsInitialized && SharingStage.Instance.IsConnected)
         {
+            if(!isLocked)
+            {
+                colorIndex = SharingStage.Instance.Manager.GetRoomManager().GetCurrentRoom().GetUserCount() - 1;
+                isLocked = true;
+            }
+
             if(isWhite)
             {
                 this.GetComponent<TextMesh>().color = Color.white;
@@ -49,7 +58,18 @@ public class TextColorManager : MonoBehaviour {
         else
         {
             this.GetComponent<TextMesh>().color = Color.cyan;
+            isLocked = false;
         }
+
+        /*
+        // debug print for user count
+        if(SharingStage.Instance.IsConnected)
+        {
+            print("Num of room users: " +
+                SharingStage.Instance.Manager.GetRoomManager().GetCurrentRoom().GetUserCount()
+            );
+        }
+        */
     }
 
 }

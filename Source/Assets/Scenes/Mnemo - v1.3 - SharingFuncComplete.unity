@@ -547,6 +547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWhite: 0
+  colorIndex: 0
+  isLocked: 0
 --- !u!102 &504225946 stripped
 TextMesh:
   m_PrefabParentObject: {fileID: 102877625565461040, guid: 02967964ac206054d9cf0f793b799c2a,
@@ -1579,7 +1581,7 @@ TextMesh:
 
     clear all
 
-    save/load ...
+    save/load (filename)
 
     browse
 
